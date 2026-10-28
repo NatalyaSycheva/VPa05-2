@@ -125,6 +125,12 @@ class PasswordGenerator:
             return ""
         return text.replace("\r", "").replace("\n", "").strip()
 
+    def _wait_for_keypress(self):
+        """Ожидает нажатия Enter перед возвратом в меню."""
+        print("\nДля продолжения нажмите Enter...")
+        input()
+
+
     def _hash_password(self, password):
         """Вычисляет SHA-256 хэш строго очищенной строки."""
         cleaned = self._clean_input(password)
@@ -285,19 +291,25 @@ class PasswordGenerator:
             
             if command == "add":
                 self.add_password()
+                self._wait_for_keypress()
             elif command == "get":
                 self.get_password()
+                self._wait_for_keypress()
             elif command == "list":
                 self.list_passwords()
+                self._wait_for_keypress()
             elif command == "delete":
                 self.delete_password()
+                self._wait_for_keypress()
             elif command == "new":
                 self.generate_password_interactive()
+                self._wait_for_keypress()
             elif command == "exit":
                 print("Программа успешно завершена. Все данные надежно зашифрованы.")
                 break
             else:
                 print("Неизвестная команда. Пожалуйста, выберите команду из списка.")
+                self._wait_for_keypress()
 
 if __name__ == "__main__":
     app = PasswordGenerator()
